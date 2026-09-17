@@ -1,0 +1,238 @@
+###############################################################################
+# CMS Site Architect – Skill Configuration
+# Workflow per pianificazione siti, alberature e layout a blocchi
+# Target: Google Sites / CMS drag-and-drop
+###############################################################################
+
+name: cms-site-architect
+version: "1.0.0"
+description: >
+  Skill per la progettazione architetturale di siti web basati su CMS
+  drag-and-drop (Google Sites, WordPress block editor, Wix, ecc.).
+  Copre alberatura, layout a blocchi, copywriting SEO e schema contenuti.
+
+# ─── Trigger ─────────────────────────────────────────────────────────────────
+trigger:
+  keywords:
+    - alberatura
+    - sitemap
+    - layout blocchi
+    - struttura sito
+    - architettura contenuti
+    - google sites
+    - cms planning
+    - page builder
+    - wireframe blocchi
+
+# ─── Workflow Phases ─────────────────────────────────────────────────────────
+workflow:
+  phases:
+
+    # ── FASE 1 – Discovery & Brief ──────────────────────────────────────────
+    - id: discovery
+      name: "Discovery & Brief"
+      description: >
+        Raccolta requisiti iniziali: obiettivi del sito, target audience,
+        brand voice, competitor benchmark e vincoli tecnici del CMS scelto.
+      steps:
+        - ask: "Qual è l'obiettivo principale del sito? (lead generation, portfolio, informativo, e-commerce, ecc.)"
+        - ask: "Chi è il target di riferimento? Descrivi le buyer persona principali."
+        - ask: "Quale CMS/piattaforma verrà utilizzata? (Google Sites, WordPress Gutenberg, Wix, Squarespace, altro)"
+        - ask: "Ci sono vincoli di brand (colori, font, tono di voce) già definiti?"
+        - ask: "Quante pagine prevedi indicativamente? Ci sono sezioni obbligatorie?"
+        - ask: "Hai competitor o siti di riferimento da analizzare?"
+      outputs:
+        - brief_documento
+        - competitor_analysis
+
+    # ── FASE 2 – Alberatura (Site Tree) ─────────────────────────────────────
+    - id: site_tree
+      name: "Alberatura del Sito"
+      description: >
+        Definizione della struttura gerarchica delle pagine.
+        Output: diagramma ad albero con livelli di profondità,
+        navigazione primaria e secondaria, breadcrumb logic.
+      steps:
+        - action: "Definire le pagine di primo livello (navigazione principale)"
+        - action: "Definire le sotto-pagine di secondo e terzo livello"
+        - action: "Mappare la navigazione secondaria (footer, sidebar, utility nav)"
+        - action: "Generare un diagramma Mermaid dell'alberatura"
+        - action: "Definire la logica dei breadcrumb"
+        - action: "Verificare che la profondità massima non superi 3 livelli"
+      outputs:
+        - sitemap_gerarchica   # Mermaid diagram
+        - navigation_map       # Navigazione primaria + secondaria
+        - breadcrumb_schema
+      rules:
+        - "Massimo 3 livelli di profondità per UX ottimale"
+        - "Ogni pagina deve essere raggiungibile in max 3 click dalla home"
+        - "Le pagine chiave per SEO devono stare al primo o secondo livello"
+        - "La navigazione principale non deve superare 7 ± 2 voci"
+
+    # ── FASE 3 – Layout a Blocchi (per pagina) ──────────────────────────────
+    - id: block_layout
+      name: "Layout a Blocchi per Pagina"
+      description: >
+        Progettazione del layout di ogni pagina usando blocchi compatibili
+        con CMS drag-and-drop. Ogni pagina viene descritta come sequenza
+        ordinata di blocchi con tipo, contenuto previsto e varianti responsive.
+      steps:
+        - action: "Per ogni pagina, definire la sequenza di blocchi dall'alto in basso"
+        - action: "Specificare il tipo di blocco (hero, testo, griglia, CTA, form, ecc.)"
+        - action: "Indicare il contenuto previsto per ogni blocco (titolo, body, immagine, link)"
+        - action: "Definire il comportamento responsive (stack, hide, reorder)"
+        - action: "Annotare le varianti A/B se previste"
+      outputs:
+        - page_layouts         # Schema blocchi per pagina
+        - block_library        # Catalogo blocchi riutilizzabili
+        - responsive_notes
+      block_types:
+        - id: hero
+          label: "Hero Section"
+          fields: [titolo, sottotitolo, immagine_sfondo, cta_primaria, cta_secondaria]
+        - id: testo_immagine
+          label: "Testo + Immagine"
+          fields: [titolo, paragrafo, immagine, allineamento]
+          variants: [immagine_sx, immagine_dx]
+        - id: griglia_card
+          label: "Griglia di Card"
+          fields: [titolo_sezione, card[titolo, descrizione, icona, link]]
+          variants: [2_colonne, 3_colonne, 4_colonne]
+        - id: cta_banner
+          label: "Call-to-Action Banner"
+          fields: [titolo, descrizione, bottone_testo, bottone_link, colore_sfondo]
+        - id: testimonial
+          label: "Testimonianze"
+          fields: [citazione, autore, ruolo, foto, rating]
+          variants: [slider, griglia, singola]
+        - id: faq_accordion
+          label: "FAQ Accordion"
+          fields: [domanda, risposta]
+          schema_type: "FAQPage"
+        - id: form_contatto
+          label: "Form di Contatto"
+          fields: [titolo, descrizione, campi_form, bottone_invio, privacy_link]
+        - id: mappa
+          label: "Mappa Incorporata"
+          fields: [indirizzo, zoom_level, titolo_sezione]
+        - id: video_embed
+          label: "Video Incorporato"
+          fields: [titolo, url_video, didascalia, autoplay]
+        - id: galleria
+          label: "Galleria Immagini"
+          fields: [titolo_sezione, immagini[src, alt, didascalia]]
+          variants: [griglia, masonry, slider]
+        - id: divisore
+          label: "Divisore / Spacer"
+          fields: [tipo, altezza]
+          variants: [linea, spazio_vuoto, decorativo]
+        - id: logo_bar
+          label: "Barra Loghi / Partner"
+          fields: [titolo_sezione, loghi[src, alt, link]]
+        - id: numeri_statistiche
+          label: "Numeri / Statistiche"
+          fields: [stat[valore, etichetta, icona]]
+          variants: [contatore_animato, statico]
+        - id: team
+          label: "Team / Chi Siamo"
+          fields: [membro[nome, ruolo, foto, bio, social_links]]
+        - id: pricing
+          label: "Tabella Prezzi"
+          fields: [piano[nome, prezzo, periodo, features, cta, evidenziato]]
+        - id: timeline
+          label: "Timeline / Storia"
+          fields: [evento[anno, titolo, descrizione, immagine]]
+        - id: codice_html
+          label: "Blocco HTML Personalizzato"
+          fields: [codice_html, note]
+        - id: header
+          label: "Header / Navigazione"
+          fields: [logo, menu_items, cta_header, variante_mobile]
+        - id: footer
+          label: "Footer"
+          fields: [colonne[titolo, links], social_icons, copyright, privacy_links]
+
+    # ── FASE 4 – SEO On-Page Planning ───────────────────────────────────────
+    - id: seo_planning
+      name: "SEO On-Page Planning"
+      description: >
+        Pianificazione SEO per ogni pagina: keyword target, title tag,
+        meta description, heading structure, internal linking strategy.
+      steps:
+        - action: "Assegnare keyword primaria e secondarie a ogni pagina"
+        - action: "Scrivere title tag (max 60 caratteri) e meta description (max 155 caratteri)"
+        - action: "Definire la struttura heading (H1 → H2 → H3)"
+        - action: "Pianificare internal linking tra le pagine"
+        - action: "Definire gli alt text per le immagini principali"
+        - action: "Verificare canonical URL e eventuali redirect"
+        - action: "Aggiungere schema markup dove applicabile (LocalBusiness, FAQPage, ecc.)"
+      outputs:
+        - seo_plan_per_pagina
+        - internal_linking_map
+        - schema_markup_plan
+
+    # ── FASE 5 – Copywriting Blueprint ──────────────────────────────────────
+    - id: copywriting
+      name: "Copywriting Blueprint"
+      description: >
+        Creazione dei testi per ogni blocco di ogni pagina,
+        ottimizzati per SEO e coerenti con il tono di voce del brand.
+      steps:
+        - action: "Scrivere i testi per ogni blocco seguendo il layout definito"
+        - action: "Ottimizzare i testi per le keyword assegnate (densità naturale)"
+        - action: "Calibrare il tono di voce secondo il brand brief"
+        - action: "Scrivere le CTA con formula AIDA o PAS"
+        - action: "Creare microcopy per form, bottoni, messaggi di errore/successo"
+      outputs:
+        - copy_per_pagina
+        - cta_variants
+        - microcopy_glossary
+      guidelines:
+        - "Usare frasi brevi e scannable (max 20 parole per frase)"
+        - "Ogni paragrafo deve avere un solo concetto chiave"
+        - "Le CTA devono essere orientate al beneficio, non all'azione generica"
+        - "Evitare gergo tecnico a meno che il target non lo richieda"
+
+    # ── FASE 6 – Review & Deliverable ───────────────────────────────────────
+    - id: review
+      name: "Review & Deliverable Finale"
+      description: >
+        Revisione complessiva e generazione dei deliverable finali.
+      steps:
+        - action: "Revisione coerenza tra alberatura, layout e copy"
+        - action: "Checklist accessibilità base (alt text, contrasto, heading order)"
+        - action: "Generare documento riepilogativo con tutte le specifiche"
+        - action: "Creare checklist di implementazione per il CMS scelto"
+      outputs:
+        - documento_completo
+        - checklist_implementazione
+        - note_per_developer
+
+# ─── Output Formats ─────────────────────────────────────────────────────────
+output_formats:
+  sitemap:
+    format: mermaid
+    description: "Diagramma Mermaid dell'alberatura del sito"
+  page_layout:
+    format: markdown_table
+    description: "Tabella con sequenza blocchi, tipo, contenuto e note responsive"
+  seo_sheet:
+    format: markdown_table
+    description: "Tabella con pagina, keyword, title, meta description, headings"
+  copy_document:
+    format: markdown
+    description: "Documento con testi organizzati per pagina e per blocco"
+
+# ─── Conventions ─────────────────────────────────────────────────────────────
+conventions:
+  naming:
+    pages: "kebab-case (es. chi-siamo, servizi-consulenza)"
+    blocks: "snake_case (es. hero_section, griglia_card)"
+    images: "kebab-case con prefisso pagina (es. home-hero-bg.webp)"
+  language: "it-IT"
+  seo:
+    title_max_length: 60
+    meta_description_max_length: 155
+    h1_per_page: 1
+    max_depth: 3
+    keyword_density_target: "1-2%"

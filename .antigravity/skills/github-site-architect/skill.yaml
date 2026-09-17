@@ -1,0 +1,240 @@
+###############################################################################
+# GitHub Site Architect – Skill Configuration
+# Generazione diretta di siti statici per GitHub Pages
+# Target: Studio commercialistico – Singola pagina index.html
+###############################################################################
+
+name: github-site-architect
+version: "1.0.0"
+description: >
+  Skill per generare siti statici pronti per GitHub Pages.
+  Produce direttamente file index.html con HTML5 semantico,
+  Tailwind CSS da CDN, design responsive e testi definitivi
+  per studi professionali (commercialisti, consulenti, avvocati).
+
+# ─── Trigger ─────────────────────────────────────────────────────────────────
+trigger:
+  keywords:
+    - github pages
+    - sito statico
+    - index.html
+    - landing page studio
+    - sito commercialista
+    - html tailwind
+    - single page site
+    - sito one-page
+
+# ─── Tech Stack ──────────────────────────────────────────────────────────────
+tech_stack:
+  html: "HTML5 semantico"
+  css: "Tailwind CSS v3.x via CDN (cdn.tailwindcss.com)"
+  icons: "Heroicons SVG inline oppure Lucide Icons via CDN"
+  fonts: "Google Fonts – Inter (body) + Playfair Display (headings)"
+  animations: "Tailwind + CSS custom per scroll-reveal e hover"
+  hosting: "GitHub Pages (branch main o /docs)"
+  js: "Vanilla JS minimal – mobile menu toggle, smooth scroll, scroll animations"
+
+# ─── File Output ─────────────────────────────────────────────────────────────
+output_files:
+  - path: "index.html"
+    description: "Pagina singola completa con tutte le sezioni"
+  - path: "favicon.svg"
+    description: "Favicon SVG inline (opzionale, può essere embedded nel <head>)"
+  - path: "README.md"
+    description: "Istruzioni per deploy su GitHub Pages"
+
+# ─── Workflow ────────────────────────────────────────────────────────────────
+workflow:
+  phases:
+
+    # ── FASE 1 – Brief rapido ───────────────────────────────────────────────
+    - id: brief
+      name: "Brief Rapido"
+      description: >
+        Raccolta delle informazioni essenziali dello studio per
+        personalizzare testi, contatti e struttura.
+      steps:
+        - ask: "Nome dello studio e titolari"
+        - ask: "Indirizzo, telefono, email, PEC"
+        - ask: "Servizi principali offerti (es. contabilità, dichiarazioni, consulenza fiscale, ecc.)"
+        - ask: "Orari di apertura"
+        - ask: "Ci sono elementi di brand già definiti? (logo, colori, payoff)"
+        - ask: "Vuoi una sezione blog/news o solo pagina statica?"
+      outputs:
+        - dati_studio
+        - lista_servizi
+        - brand_elements
+
+    # ── FASE 2 – Generazione HTML ───────────────────────────────────────────
+    - id: html_generation
+      name: "Generazione index.html"
+      description: >
+        Creazione del file index.html completo con tutte le sezioni,
+        testi definitivi, Tailwind CSS da CDN, responsive design.
+      steps:
+        - action: "Creare la struttura HTML5 con <head> completo (meta SEO, OG, favicon, fonts, Tailwind CDN)"
+        - action: "Generare la sezione Header/Nav con logo testuale e menu responsive"
+        - action: "Generare la Hero Section con headline, sottotitolo e CTA"
+        - action: "Generare la sezione Chi Siamo con testo dello studio"
+        - action: "Generare la sezione Servizi con griglia di card"
+        - action: "Generare la sezione Perché Sceglierci / Punti di forza"
+        - action: "Generare la sezione Testimonianze (opzionale)"
+        - action: "Generare la sezione Contatti con info, mappa embed e form"
+        - action: "Generare il Footer con dati legali, P.IVA, privacy"
+        - action: "Aggiungere JavaScript per mobile menu, smooth scroll e scroll animations"
+      outputs:
+        - index_html_completo
+
+    # ── FASE 3 – SEO & Meta ────────────────────────────────────────────────
+    - id: seo_meta
+      name: "SEO & Meta Tags"
+      description: >
+        Ottimizzazione SEO integrata direttamente nel file HTML.
+      steps:
+        - action: "Title tag ottimizzato (max 60 char)"
+        - action: "Meta description (max 155 char)"
+        - action: "Open Graph tags per condivisione social"
+        - action: "Schema markup JSON-LD (LocalBusiness)"
+        - action: "Canonical URL"
+        - action: "Heading hierarchy H1 → H2 → H3"
+        - action: "Alt text per tutte le immagini/icone"
+
+    # ── FASE 4 – Deploy Instructions ───────────────────────────────────────
+    - id: deploy
+      name: "Istruzioni Deploy"
+      description: >
+        README con istruzioni per pubblicare su GitHub Pages.
+      steps:
+        - action: "Creare README.md con istruzioni passo-passo"
+        - action: "Includere configurazione CNAME per dominio custom (opzionale)"
+
+# ─── Struttura Sezioni della Pagina ─────────────────────────────────────────
+page_sections:
+
+  - id: head
+    label: "Document Head"
+    elements:
+      - "<!DOCTYPE html> + lang='it'"
+      - "charset UTF-8 + viewport"
+      - "Title tag SEO"
+      - "Meta description"
+      - "Open Graph tags (og:title, og:description, og:image, og:url)"
+      - "Favicon (SVG inline o link)"
+      - "Google Fonts preconnect + link (Inter, Playfair Display)"
+      - "Tailwind CSS CDN script"
+      - "Tailwind config inline (colori custom, font families)"
+      - "CSS custom per animazioni (scroll-reveal, gradient)"
+
+  - id: header
+    label: "Header / Navigazione"
+    tailwind: "fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md shadow-sm"
+    elements:
+      - "Logo testuale con nome studio"
+      - "Nav links: Chi Siamo, Servizi, Contatti"
+      - "CTA button: 'Prenota Consulenza'"
+      - "Hamburger menu mobile con transizione"
+
+  - id: hero
+    label: "Hero Section"
+    tailwind: "min-h-screen flex items-center bg-gradient-to-br"
+    elements:
+      - "H1: headline con keyword primaria"
+      - "Sottotitolo: value proposition in 1-2 frasi"
+      - "CTA primaria: bottone prominente"
+      - "CTA secondaria: link testuale"
+      - "Elemento decorativo (gradient, shape, pattern)"
+
+  - id: chi_siamo
+    label: "Chi Siamo"
+    tailwind: "py-20 lg:py-28"
+    elements:
+      - "H2: titolo sezione"
+      - "Testo narrativo dello studio (2-3 paragrafi)"
+      - "Numeri/statistiche (anni attività, clienti, pratiche)"
+      - "Immagine o icona decorativa"
+
+  - id: servizi
+    label: "I Nostri Servizi"
+    tailwind: "py-20 lg:py-28 bg-gray-50"
+    elements:
+      - "H2: titolo sezione"
+      - "Sottotitolo introduttivo"
+      - "Griglia 2x3 o 3x2 di card servizio"
+      - "Ogni card: icona SVG + H3 + descrizione"
+
+  - id: perche_noi
+    label: "Perché Sceglierci"
+    tailwind: "py-20 lg:py-28"
+    elements:
+      - "H2: titolo sezione"
+      - "3-4 punti di forza con icona e testo"
+      - "Eventuale CTA di rinforzo"
+
+  - id: testimonial
+    label: "Cosa Dicono di Noi"
+    tailwind: "py-20 lg:py-28 bg-primary-50"
+    elements:
+      - "H2: titolo sezione"
+      - "2-3 citazioni con nome, ruolo, rating stelle"
+
+  - id: contatti
+    label: "Contatti"
+    tailwind: "py-20 lg:py-28"
+    elements:
+      - "H2: titolo sezione"
+      - "Griglia 2 colonne: info contatto + form/mappa"
+      - "Indirizzo, telefono, email, PEC"
+      - "Orari di apertura"
+      - "Google Maps embed iframe"
+      - "Form contatto (nome, email, telefono, messaggio) – solo frontend"
+
+  - id: footer
+    label: "Footer"
+    tailwind: "bg-gray-900 text-gray-300 py-12"
+    elements:
+      - "Logo e breve descrizione"
+      - "Link rapidi"
+      - "Dati legali: P.IVA, CF, ordine professionale"
+      - "Link privacy e cookie policy"
+      - "Copyright con anno dinamico (JS)"
+
+# ─── Design System (Tailwind Config) ────────────────────────────────────────
+design_system:
+  colors:
+    primary: "Blu navy profondo (#1e3a5f) – fiducia, professionalità"
+    primary_light: "#2d5a8e"
+    primary_dark: "#0f2440"
+    accent: "Oro/ambra (#d4a843) – prestigio, competenza"
+    accent_light: "#e8c96a"
+    neutral_50: "#f8fafc"
+    neutral_100: "#f1f5f9"
+    neutral_900: "#0f172a"
+    success: "#059669"
+    white: "#ffffff"
+  fonts:
+    heading: "'Playfair Display', serif"
+    body: "'Inter', sans-serif"
+  border_radius: "rounded-lg (8px) per card, rounded-full per bottoni pill"
+  shadows: "shadow-lg per card in hover, shadow-sm per header"
+  transitions: "transition-all duration-300 ease-in-out"
+
+# ─── Convenzioni di Codice ───────────────────────────────────────────────────
+code_conventions:
+  html:
+    - "Indentazione: 2 spazi"
+    - "Attributi Tailwind ordinati: layout → spacing → sizing → typography → colors → effects"
+    - "Commenti HTML per delimitare ogni sezione (<!-- HERO -->, <!-- SERVIZI -->, ecc.)"
+    - "Usare tag semantici: <header>, <nav>, <main>, <section>, <article>, <footer>"
+    - "Ogni <section> con id univoco per anchor navigation"
+    - "Immagini: usare placeholder SVG inline o emoji come icone"
+  accessibility:
+    - "aria-label su nav e bottoni icona"
+    - "role='navigation' su <nav>"
+    - "sr-only class per testi screen-reader"
+    - "focus:ring su elementi interattivi"
+    - "Contrasto colori WCAG AA"
+  performance:
+    - "Nessun file esterno oltre CDN (tutto inline)"
+    - "Font display: swap"
+    - "Lazy loading su iframe mappa"
+    - "Minimal JS (< 50 righe)"
