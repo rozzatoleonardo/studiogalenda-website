@@ -364,17 +364,17 @@
                 </p>
               </div>
 
-              <form id="contact-form" action="https://formsubmit.co/studiogalenda@libero.it" method="POST" class="space-y-5">
+              <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-5">
                 
-                <!-- FormSubmit Configuration -->
-                <input type="hidden" name="_subject" value="Nuova richiesta di consulenza dal sito Studio Galenda">
-                <input type="hidden" name="_template" value="table">
-                <input type="hidden" name="_captcha" value="false">
-                <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+                <!-- Web3Forms Configuration -->
+                <input type="hidden" name="access_key" value="e9c0749b-786c-4bae-9c2f-7a6a657c1cee">
+                <input type="hidden" name="subject" value="Nuova richiesta di consulenza dal sito Studio Galenda">
+                <input type="hidden" name="from_name" value="Sito Web Studio Galenda">
+                <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
                 <div>
                   <label for="name" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Nome e Cognome *</label>
-                  <input type="text" id="name" name="Nome e Cognome" required
+                  <input type="text" id="name" name="name" required
                     class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 text-base sm:text-sm transition-all"
                     placeholder="es. Mario Rossi">
                 </div>
@@ -388,7 +388,7 @@
 
                 <div>
                   <label for="email" class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Indirizzo Email *</label>
-                  <input type="email" id="email" name="Email" required
+                  <input type="email" id="email" name="email" required
                     class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 text-base sm:text-sm transition-all"
                     placeholder="es. mario.rossi@email.it">
                 </div>
@@ -565,7 +565,7 @@
     const yearEl = document.getElementById('year');
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-    // Form interactive submit handling with FormSubmit
+    // Form interactive submit handling with Web3Forms
     const form = document.getElementById('contact-form');
     const successBanner = document.getElementById('form-success-banner');
     const errorBanner = document.getElementById('form-error-banner');
@@ -595,20 +595,26 @@
 
         try {
           const formData = new FormData(form);
-          const response = await fetch('https://formsubmit.co/ajax/studiogalenda@libero.it', {
+          const object = Object.fromEntries(formData);
+          const json = JSON.stringify(object);
+
+          const response = await fetch('https://api.web3forms.com/submit', {
             method: 'POST',
             headers: {
+              'Content-Type': 'application/json',
               'Accept': 'application/json'
             },
-            body: formData
+            body: json
           });
 
-          if (response.ok) {
+          const result = await response.json();
+
+          if (response.status === 200 && result.success) {
             successBanner.classList.remove('hidden');
             successBanner.scrollIntoView({ behavior: 'smooth', block: 'center' });
             form.reset();
           } else {
-            throw new Error('Errore durante l\'invio');
+            throw new Error(result.message || 'Errore durante l\'invio');
           }
         } catch (error) {
           if (errorBanner) {
