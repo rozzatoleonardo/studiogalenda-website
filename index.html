@@ -100,6 +100,15 @@
       -webkit-backdrop-filter: blur(16px) !important;
       box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.06) !important;
     }
+    #hamburger-icon.open span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+    #hamburger-icon.open span:nth-child(2) {
+      opacity: 0;
+    }
+    #hamburger-icon.open span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
   </style>
 
   <!-- Schema Markup -->
@@ -154,18 +163,18 @@
 
         <!-- Nav Desktop -->
         <nav class="hidden md:flex items-center gap-1" role="navigation" aria-label="Navigazione principale">
-          <a href="index.html" class="nav-link px-4 py-2 rounded-lg text-sm font-semibold text-brand-800 bg-brand-50 transition-all duration-200">Home</a>
-          <a href="chi-siamo.html" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-brand-800 hover:bg-brand-50 transition-all duration-200">Chi Siamo</a>
+          <a href="index.html" class="nav-link px-3 lg:px-4 py-2 rounded-lg text-sm font-semibold text-brand-800 bg-brand-50 transition-all duration-200">Home</a>
+          <a href="chi-siamo.html" class="nav-link px-3 lg:px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-brand-800 hover:bg-brand-50 transition-all duration-200">Chi Siamo</a>
           
           <!-- Dropdown Servizi -->
-          <div class="relative group">
-            <a href="fiscale.html" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-brand-800 hover:bg-brand-50 transition-all duration-200 flex items-center gap-1.5 group-hover:text-brand-800 group-hover:bg-brand-50">
+          <div class="relative group" id="services-dropdown">
+            <button type="button" id="services-menu-btn" class="nav-link px-3 lg:px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-brand-800 hover:bg-brand-50 flex items-center gap-1.5 transition-all duration-200 group-hover:text-brand-800 group-hover:bg-brand-50 cursor-pointer focus:outline-none" aria-expanded="false" aria-haspopup="true">
               <span>Servizi</span>
-              <svg class="w-3.5 h-3.5 text-slate-400 group-hover:text-brand-800 transition-transform duration-200 group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <svg id="services-chevron" class="w-3.5 h-3.5 text-slate-400 group-hover:text-brand-800 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
               </svg>
-            </a>
-            <div class="absolute left-0 top-full pt-1.5 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 z-50">
+            </button>
+            <div id="services-dropdown-menu" class="absolute left-0 top-full pt-1.5 w-48 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
               <div class="bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-slate-100 p-2 ring-1 ring-black/5">
                 <a href="fiscale.html" class="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:text-brand-900 hover:bg-brand-50 transition-colors">
                   <span class="w-5 h-5 rounded flex items-center justify-center shrink-0 overflow-hidden">
@@ -183,18 +192,18 @@
             </div>
           </div>
 
-          <a href="contatti.html" class="nav-link px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-brand-800 hover:bg-brand-50 transition-all duration-200">Contatti</a>
+          <a href="contatti.html" class="nav-link px-3 lg:px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-brand-800 hover:bg-brand-50 transition-all duration-200">Contatti</a>
         </nav>
 
         <!-- CTA Desktop -->
-        <a href="contatti.html" class="hidden md:inline-flex items-center gap-2 bg-brand-800 hover:bg-brand-700 text-white text-sm font-semibold px-6 py-2.5 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-brand-800/20 hover:-translate-y-0.5">
+        <a href="contatti.html" class="hidden md:inline-flex items-center gap-2 bg-brand-800 hover:bg-brand-700 text-white text-sm font-semibold px-5 lg:px-6 py-2.5 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-brand-800/20 hover:-translate-y-0.5">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
           Contattaci
         </a>
 
         <!-- Hamburger Mobile -->
-        <button id="mobile-menu-btn" class="md:hidden relative w-10 h-10 flex items-center justify-center rounded-lg hover:bg-slate-100 transition-colors" aria-label="Apri menu">
-          <div class="space-y-1.5" id="hamburger-icon">
+        <button id="mobile-menu-btn" class="md:hidden relative w-10 h-10 flex items-center justify-center rounded-lg hover:bg-slate-100 transition-colors focus:outline-none" aria-label="Apri menu" aria-expanded="false">
+          <div class="space-y-1.5 transition-all duration-300" id="hamburger-icon">
             <span class="block w-5 h-0.5 bg-slate-700 rounded-full transition-all duration-300"></span>
             <span class="block w-5 h-0.5 bg-slate-700 rounded-full transition-all duration-300"></span>
             <span class="block w-5 h-0.5 bg-slate-700 rounded-full transition-all duration-300"></span>
@@ -211,14 +220,14 @@
         <div class="py-1">
           <div class="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-slate-400">Servizi</div>
           <div class="pl-4 space-y-1 border-l-2 border-brand-100 ml-4">
-            <a href="fiscale.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-slate-700 hover:bg-brand-50">
-              <span class="w-5 h-5 rounded flex items-center justify-center shrink-0 overflow-hidden">
+            <a href="fiscale.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-base font-medium text-slate-700 hover:bg-brand-50 active:bg-brand-100 transition-colors">
+              <span class="w-6 h-6 rounded-lg bg-slate-50 border border-slate-200/80 p-0.5 flex items-center justify-center shrink-0 overflow-hidden shadow-xs">
                 <img src="logo.jpg" alt="Logo Fiscale" class="w-full h-full object-contain">
               </span>
               <span>Fiscale</span>
             </a>
-            <a href="lavoro.html" class="flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-medium text-slate-700 hover:bg-brand-50">
-              <span class="w-5 h-5 rounded flex items-center justify-center shrink-0 overflow-hidden">
+            <a href="lavoro.html" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-base font-medium text-slate-700 hover:bg-brand-50 active:bg-brand-100 transition-colors">
+              <span class="w-6 h-6 rounded-lg bg-slate-50 border border-slate-200/80 p-0.5 flex items-center justify-center shrink-0 overflow-hidden shadow-xs">
                 <img src="Logo_CdL_alta.jpg" alt="Logo Lavoro" class="w-full h-full object-contain">
               </span>
               <span>Lavoro</span>
@@ -227,7 +236,7 @@
         </div>
         <a href="contatti.html" class="block px-4 py-3 rounded-xl text-base font-medium text-slate-700 hover:bg-brand-50">Contatti</a>
         <div class="pt-3">
-          <a href="contatti.html" class="block w-full text-center bg-brand-800 text-white font-semibold px-6 py-3 rounded-full">Contattaci</a>
+          <a href="contatti.html" class="block w-full text-center bg-brand-800 text-white font-semibold px-6 py-3 rounded-full hover:bg-brand-700 transition-colors">Contattaci</a>
         </div>
       </div>
     </div>
@@ -308,7 +317,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
 
           <!-- Macro Card 1: Fiscale -->
-          <a href="fiscale.html" class="reveal block bg-gradient-to-br from-slate-50 via-white to-white rounded-3xl p-8 sm:p-10 border border-slate-200/80 hover:border-brand-400 hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer">
+          <a href="fiscale.html" class="reveal block bg-gradient-to-br from-slate-50 via-white to-white rounded-3xl p-6 sm:p-8 lg:p-10 border border-slate-200/80 hover:border-brand-400 hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer">
             <div class="flex items-center justify-between mb-6">
               <div class="flex items-center gap-3">
                 <span class="w-9 h-9 rounded-xl bg-white p-1.5 border border-slate-200 shadow-xs flex items-center justify-center shrink-0 overflow-hidden">
@@ -330,7 +339,7 @@
             </p>
 
             <!-- Pill tags sintetici -->
-            <div class="grid grid-cols-2 gap-2.5 text-xs text-slate-700 font-medium border-t border-slate-100 pt-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-slate-700 font-medium border-t border-slate-100 pt-5">
               <div class="flex items-center gap-2 bg-slate-100/70 px-3 py-2 rounded-lg">
                 <span class="w-1.5 h-1.5 rounded-full bg-accent-600"></span>
                 <span>Contabilità e Bilanci</span>
@@ -351,7 +360,7 @@
           </a>
 
           <!-- Macro Card 2: Lavoro -->
-          <a href="lavoro.html" class="reveal block bg-gradient-to-br from-slate-50 via-white to-white rounded-3xl p-8 sm:p-10 border border-slate-200/80 hover:border-brand-400 hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer" style="transition-delay:0.1s">
+          <a href="lavoro.html" class="reveal block bg-gradient-to-br from-slate-50 via-white to-white rounded-3xl p-6 sm:p-8 lg:p-10 border border-slate-200/80 hover:border-brand-400 hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group cursor-pointer" style="transition-delay:0.1s">
             <div class="flex items-center justify-between mb-6">
               <div class="flex items-center gap-3">
                 <span class="w-9 h-9 rounded-xl bg-white p-1.5 border border-slate-200 shadow-xs flex items-center justify-center shrink-0 overflow-hidden">
@@ -373,7 +382,7 @@
             </p>
 
             <!-- Pill tags sintetici -->
-            <div class="grid grid-cols-2 gap-2.5 text-xs text-slate-700 font-medium border-t border-slate-100 pt-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs text-slate-700 font-medium border-t border-slate-100 pt-5">
               <div class="flex items-center gap-2 bg-slate-100/70 px-3 py-2 rounded-lg">
                 <span class="w-1.5 h-1.5 rounded-full bg-brand-700"></span>
                 <span>Buste Paga e Cedolini</span>
@@ -602,9 +611,56 @@
     // Mobile menu toggle
     const menuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
-    menuBtn?.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
+    const hamburgerIcon = document.getElementById('hamburger-icon');
+
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', () => {
+        const isHidden = mobileMenu.classList.toggle('hidden');
+        menuBtn.setAttribute('aria-expanded', String(!isHidden));
+        hamburgerIcon?.classList.toggle('open', !isHidden);
+      });
+    }
+
+    // Dropdown Servizi per desktop e tablet touch
+    const servicesBtn = document.getElementById('services-menu-btn');
+    const servicesDropdown = document.getElementById('services-dropdown');
+    const servicesMenu = document.getElementById('services-dropdown-menu');
+    const servicesChevron = document.getElementById('services-chevron');
+
+    if (servicesBtn && servicesMenu) {
+      servicesBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const isOpen = servicesMenu.classList.contains('dropdown-active');
+        if (isOpen) {
+          servicesMenu.classList.remove('dropdown-active', '!opacity-100', '!visible');
+          servicesChevron?.classList.remove('rotate-180');
+          servicesBtn.setAttribute('aria-expanded', 'false');
+        } else {
+          servicesMenu.classList.add('dropdown-active', '!opacity-100', '!visible');
+          servicesChevron?.classList.add('rotate-180');
+          servicesBtn.setAttribute('aria-expanded', 'true');
+        }
+      });
+
+      // Close when clicking outside
+      document.addEventListener('click', (e) => {
+        if (servicesDropdown && !servicesDropdown.contains(e.target)) {
+          servicesMenu.classList.remove('dropdown-active', '!opacity-100', '!visible');
+          servicesChevron?.classList.remove('rotate-180');
+          servicesBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Close on Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          servicesMenu.classList.remove('dropdown-active', '!opacity-100', '!visible');
+          servicesChevron?.classList.remove('rotate-180');
+          servicesBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
 
     // Header scroll blur effect
     const header = document.getElementById('header');
