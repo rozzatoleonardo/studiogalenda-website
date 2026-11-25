@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Studio Commercialistico Galenda – Consulenza Fiscale e del Lavoro a Stra (VE)</title>
-  <meta name="description" content="Studio Commercialistico Galenda a Stra (VE): consulenza fiscale, contabile, societaria e del lavoro per aziende, professionisti e privati.">
+  <title>Studio Galenda – Consulenza Fiscale e del Lavoro a Stra (VE)</title>
+  <meta name="description" content="Studio Galenda a Stra (VE): consulenza fiscale, contabile, societaria e del lavoro per aziende, professionisti e privati.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://www.studiogalenda.com/">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Studio Galenda">
   <meta property="og:url" content="https://www.studiogalenda.com/">
   <meta property="og:title" content="Studio Galenda – Consulenza Fiscale & Del Lavoro">
   <meta property="og:description" content="Consulenza fiscale, contabile, societaria e del lavoro personalizzata a Stra (VE).">
@@ -116,32 +117,41 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "AccountingService",
-    "name": "Studio Commercialistico Galenda",
-    "description": "Consulenza fiscale, contabile, societaria e del lavoro per aziende e privati.",
-    "url": "https://www.studiogalenda.com/",
-    "telephone": "+39049503650",
-    "email": "studiogalenda@libero.it",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Via Voltan, 31",
-      "addressLocality": "Stra",
-      "postalCode": "30039",
-      "addressRegion": "VE",
-      "addressCountry": "IT"
-    },
-    "openingHoursSpecification": [
+    "@graph": [
       {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
-        "opens": "08:30",
-        "closes": "12:30"
+        "@type": "WebSite",
+        "name": "Studio Galenda",
+        "url": "https://www.studiogalenda.com/"
       },
       {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
-        "opens": "14:30",
-        "closes": "18:30"
+        "@type": "AccountingService",
+        "name": "Studio Galenda",
+        "description": "Consulenza fiscale, contabile, societaria e del lavoro per aziende e privati.",
+        "url": "https://www.studiogalenda.com/",
+        "telephone": "+39049503650",
+        "email": "studiogalenda@libero.it",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Via Voltan, 31",
+          "addressLocality": "Stra",
+          "postalCode": "30039",
+          "addressRegion": "VE",
+          "addressCountry": "IT"
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+            "opens": "08:30",
+            "closes": "12:30"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+            "opens": "14:30",
+            "closes": "18:30"
+          }
+        ]
       }
     ]
   }
